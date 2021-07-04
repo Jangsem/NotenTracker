@@ -1,0 +1,2 @@
+from _tkinter import *
+
