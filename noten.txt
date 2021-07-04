@@ -1,0 +1,9 @@
+mathe 5.5 2020 1 19
+mathe 5.1 2029 3 19
+mathe 5.2 2019 5 19
+deutsch 3 2019 5 19
+informatik 5 2019 5 19
+deutsch 2 2019 5 19
+informatik 6 2020 5 19
+informatik 3 2019 7 8
+informatik 4 2015 5 19

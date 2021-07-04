@@ -1,13 +1,16 @@
 import datetime
+from FileHandler import FileHandler
 
+
+filehandler = FileHandler()
 class Note():
     pass
 
-    def __init__(self, wert, year, month, day):
+    def __init__(self, wert, fach, year, month, day):
         self.wert = wert
         self.date = datetime.datetime(year, month, day)
+        self.fach = fach
 
-    gewicht = 1
 
     def setWert(self, w):
         self.wert = w
@@ -18,8 +21,6 @@ class Note():
     def getDate(self):
         return self.date
 
-note1 = Note(5, 2020, 9, 28)
-note2 = Note(5.25, 2002, 1, 19)
 
 class Fach():
     def __init__(self, name):
@@ -32,32 +33,26 @@ class Fach():
     def getName(self):
         return self.name
 
-    def add_note(self, note):
-        self.noten.append(note)
 
-    def add_note(self, wert, year, month, day):
-        newnote = Note(wert, year, month, day)
-        self.noten.append(newnote)
+    def add_note(self, wert, fach, year, month, day):
+        filehandler.writeNote(wert, fach, year, month, day)
+
 
     def show_noten(self):
-        for note in self.noten:
-            print(note.getWert(), note.getDate())
+        filehandler.readNoten(self.name)
 
     def average(self):
-        sum = 0
-        for note in self.noten:
-            sum += note.getWert()
-        return sum / len(self.noten)
+        filehandler.averageNoten(self.name)
 
     def wish_note(self, wunsch):
-        sum = wunsch * (len(self.noten) + 1)
-        for note in self.noten:
-            sum -= note.getWert()
-        return sum
+        filehandler.wish(self.name, wunsch)
 
     def remove_note(self, index):
         self.noten.pop(index-1)
 
+#fach = Fach("mathe")
+#fach.average()
+#fach.wish_note(5.3)
 
 class Zeugnis:
 
@@ -73,31 +68,14 @@ class Zeugnis:
         return self.semester
 
     def show_faecher(self):
-        for fach in self.faecher:
-            print(fach.getName())
+        return filehandler.readFach()
 
     def average(self):
-        sum = 0
-        for fach in self.faecher:
-            sum += fach.getWert()
-        return sum / len(self.faecher)
-
-    def addFach(self, fach):
-        self.faecher.append(fach)
+        return filehandler.averageFaecher()
 
     def addFach(self, name):
-        newFach = Fach(name)
-        self.faecher.append(newFach)
+        filehandler.writeFach(name)
 
-fach1 = Fach("Mathematik")
-zeugnis1 = Zeugnis('Tenzin', '19/20')
-zeugnis1.addFach(fach1)
-zeugnis1.addFach("Deutsch")
-zeugnis1.show_faecher()
-#fach1.add_note(note1)
-#fach1.add_note(note2)
-#fach1.add_note(5.3, 2019, 02, 25)
-#fach1.show_noten()
-
-
-
+zeugnis = Zeugnis("Tenzin", '1')
+print(zeugnis.show_faecher())
+zeugnis.average()
