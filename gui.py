@@ -54,22 +54,6 @@ submit_button.pack()
 delete_button = Button(text="delete", command=delete)
 delete_button.pack()
 
-def submitFach(name):
-    third_window = Tk()
-    third_window.geometry("250x250")
-    third_window.title(name)
-
-    noten = filehandler.readNoten(name)
-    for index in noten:
-        label = Label(third_window, text=str(index))
-        label.pack()
-
-    textarea = Text(third_window, height=2, width=30)
-    textarea.pack()
-    create_button = Button(third_window,text="erstellen", command=createNote)
-
-    wish_button = Button(third_window, text="Wunschnote", command=wishNote)
-    wish_button.pack()
 
 
 def second_window_create():
@@ -80,23 +64,48 @@ def second_window_create():
     namelabel = Label(second_window, text=entry.get())
     namelabel.pack()
 
-
-
     faecher = filehandler.readFach()
 
-    x = IntVar()
+    var = StringVar()
 
-    for index in range(len(faecher)):
-        radiobutton = Radiobutton(second_window, text=(faecher[index]+ " " + str(filehandler.averageNoten(faecher[index]))),  # adds text to radio buttons
-                                  variable=x,  # groups radiobuttoons if they share same variable
+    for index in faecher:
+        radiobutton = Radiobutton(second_window, text=(index+ " " + str(filehandler.averageNoten(index))),  # adds text to radio buttons
+                                  variable=var,  # groups radiobuttoons if they share same variable
                                   value=index  # assigns each radiobutton a different value
                                   )
         radiobutton.pack()
-    radiobutton.select()
+        radiobutton.select()
 
-    submit_faecher = Button(second_window, text="submit", command=lambda : submitFach(faecher[index]))
+    def submitFach():
+        name = str(var.get())
+        third_window = Tk()
+        third_window.geometry("250x250")
+        third_window.title(name)
+
+        noten = filehandler.readNoten(name)
+        for index in noten:
+            label = Label(third_window, text=str(index))
+            label.pack()
+
+        textarea = Text(third_window, height=2, width=30)
+        textarea.pack()
+        create_button = Button(third_window, text="erstellen", command=createNote)
+        create_button.pack()
+        wish_button = Button(third_window, text="Wunschnote", command=wishNote)
+        wish_button.pack()
+
+    submit_faecher = Button(second_window, text="submit", command= submitFach)
     submit_faecher.pack()
 
+    entry_faecher = Entry(second_window)
+    entry_faecher.insert(0 ,"Fach")
+    entry_faecher.pack()
+
+    def createFach():
+        filehandler.writeFach(entry_faecher.get())
+
+    create_fach = Button(second_window, text="create", command=createFach)
+    create_fach.pack()
     first_window.destroy()
 
 
