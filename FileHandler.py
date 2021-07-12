@@ -28,7 +28,10 @@ class FileHandler():
                     if (str[0] == fach):
                         count += 1
                         sum+= float(str[1])
-        average = sum/count
+        if count == 0:
+            return 0
+        else:
+                average = sum/count
         return round(average, 2)
 
 
