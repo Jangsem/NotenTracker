@@ -31,8 +31,8 @@ class FileHandler():
         if count == 0:
             return 0
         else:
-                average = sum/count
-        return round(average, 2)
+            average = sum/count
+            return round(average, 2)
 
 
     def wish(self, fach, wunsch):

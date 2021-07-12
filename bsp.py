@@ -1,7 +1,7 @@
 from tkinter import *
-from FileHandler import FileHandler
-filehandler = FileHandler()
-cb_strings = filehandler.readFach()
+
+cb_strings = ['item 1', 'item 2', 'item 3', 'item 4']
+
 def sel():
    print("You selected the option " + str(var.get()))
 
@@ -11,7 +11,7 @@ var = StringVar()
 
 
 for item in cb_strings:
-    button = Radiobutton(root, text=item, variable=var, value=item, command = sel)
+    button = Radiobutton(root, text=item, variable=var, value=item)
     button.pack(anchor=W)
     button.select()
 
